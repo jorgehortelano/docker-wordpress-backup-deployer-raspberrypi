@@ -67,11 +67,4 @@ VOLUME /var/lib/mysql
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
-B
-
-B
-B
-B
-B
-B
 
