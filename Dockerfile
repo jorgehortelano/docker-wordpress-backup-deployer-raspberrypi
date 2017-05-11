@@ -1,16 +1,11 @@
 FROM armhf/alpine
-LABEL Maintainer="Tim de Pater <code@trafex.nl>" \
-      Description="Lightweight WordPress container with Nginx 1.10 & PHP-FPM 7.1 based on Alpine Linux."
-
+LABEL Maintainer="Jorge Hortelano" \
+      Description="Lightweight WordPress container with Nginx 1.10 & PHP-FPM 7.1 & MariaDB based on Alpine Linux."
+ 
 # Install packages from testing repo's
 RUN apk --no-cache add php7 php7-fpm php7-mysqli php7-json php7-openssl php7-curl \
     php7-zlib php7-xml php7-phar php7-intl php7-dom php7-xmlreader php7-ctype \
-    php7-mbstring php7-gd nginx \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ 
-
-# Install packages from stable repo's
-RUN apk --no-cache add --update supervisor curl bash pwgen mysql mysql-client
+    php7-mbstring php7-gd nginx supervisor curl bash pwgen mysql mysql-client
 
 # Configure nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf
@@ -62,10 +57,21 @@ RUN rm -f /tmp/backup/wp-config.php \
 
 # Entrypoint to copy wp-content
 COPY entrypoint.sh /entrypoint.sh
-    
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 
 EXPOSE 80
 
+#MySQL VOLUME
+VOLUME /var/lib/mysql
+
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
+B
+
+B
+B
+B
+B
+B
+

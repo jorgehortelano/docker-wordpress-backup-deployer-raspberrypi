@@ -8,14 +8,17 @@ Copy the backup file with format <name>_wordpress_backup_<date>.tar.gz in this c
 
 ## Build
 
-    docker build docker-wordpress-mysql -t wordpress
+    docker build docker-wordpress-backup-deployer -t wordpress
 
 ## Usage
-    docker run -d --name wordpress -p 80:80 -e "DOMAIN=http://site.com" -v /local/folder:/var/www/wp-content wordpress
-    
-Or without a volume
-    
+
     docker run -d --name wordpress -p 80:80 -e "DOMAIN=http://site.com" --restart always wordpress
+    
+Or with a volume
+
+    docker volume create --name www-wordpress
+    docker volume create --name mysql-wordpress    
+    docker run -d --name wordpress -p 80:80 -v mysql-wordpress:/var/lib/mysql -v www-wordpress:/var/www/wp-content -e "DOMAIN=http://site.com"  wordpress
     
 Where "http://site.com" is the domain (or IP) that points to this docker container. 
     
@@ -32,3 +35,5 @@ And find some lines like these:
 
 ### Forked from
 * https://github.com/jorgehortelano/docker-wordpress-mysql
+
+
