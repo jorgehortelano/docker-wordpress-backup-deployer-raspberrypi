@@ -71,11 +71,12 @@ else
 	MYSQL_WORDPRESS_USER_PASSWORD=`tail -1 ${MYSQL_PASSWORD_FILE}`;
 fi
     
-    #Get domain from variable set at docker run or use default value.
+#Get domain from variable set at docker run or use default value.
 if [ -z ${DOMAIN} ]; 
 then
 	DOMAIN="localhost"
 fi
-    
-#fi
+
+echo 'Entrypoint finished!'
+
 exec "$@"
