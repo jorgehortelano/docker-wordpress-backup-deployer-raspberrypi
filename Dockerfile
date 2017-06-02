@@ -27,8 +27,8 @@ RUN /usr/bin/mysql_install_db --user=mysql \
     && cp /usr/share/mysql/mysql.server /etc/init.d/mysqld
 
 # Wordpress
-ENV WORDPRESS_VERSION 4.7.5
-ENV WORDPRESS_SHA1 153592ccbb838cafa1220de9174ec965df2e9e1a
+ENV WORDPRESS_VERSION 4.7.4
+ENV WORDPRESS_SHA1 fbe0ee1d9010265be200fe50b86f341587187302
 
 # Upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
 RUN mkdir -p /usr/src \
