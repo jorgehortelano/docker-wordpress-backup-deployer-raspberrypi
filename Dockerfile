@@ -28,10 +28,12 @@ RUN /usr/bin/mysql_install_db --user=mysql \
 
 # Wordpress
 ENV WORDPRESS_VERSION 4.7.5
+ENV WORDPRESS_SHA1 fbe0ee1d9010265be200fe50b86f341587187302
 
 # Upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
 RUN mkdir -p /usr/src \
         && curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz \
+	&& echo "$WORDPRESS_SHA1 *wordpress.tar.gz" | sha1sum -c - \
 	&& tar -xzf wordpress.tar.gz -C /usr/src/ \
 	&& rm wordpress.tar.gz \
 	&& chown -R nobody.nobody /usr/src/wordpress
