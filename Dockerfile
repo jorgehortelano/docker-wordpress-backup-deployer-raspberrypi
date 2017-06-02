@@ -27,7 +27,7 @@ RUN /usr/bin/mysql_install_db --user=mysql \
     && cp /usr/share/mysql/mysql.server /etc/init.d/mysqld
 
 # Wordpress
-ENV WORDPRESS_VERSION 4.7.4
+ENV WORDPRESS_VERSION 4.7.5
 ENV WORDPRESS_SHA1 153592ccbb838cafa1220de9174ec965df2e9e1a
 
 # Upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
@@ -57,6 +57,7 @@ RUN rm -f /tmp/backup/wp-config.php \
 
 # Entrypoint to copy wp-content
 COPY entrypoint.sh /entrypoint.sh
+COPY app/backup.sh /backup.sh
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 
