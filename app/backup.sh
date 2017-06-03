@@ -11,7 +11,7 @@ MYSQL_RANDOM_ROOT_PASSWORD=`head -1 ${MYSQL_PASSWORD_FILE}`;
 MYSQL_WORDPRESS_USER_PASSWORD=`tail -1 ${MYSQL_PASSWORD_FILE}`;
 
 # If you have multiple folders with WordPress files, add/remove them from this array
-directories=( "/var/www/wp-content" "/usr/src/wordpress" )
+directories=( "/var/www/wp-content" )
 
 for searchFolder in "${directories[@]}"
 do
@@ -19,7 +19,7 @@ do
   cd $searchFolder
 
   echo -e "Compressing directory... ${searchFolder}\n"
-  BACKUP_FILENAME=backpup_$(basename "${searchFolder}")_$(date +"%y-%m-%d_%H:%M:%S").tar.gz
+  BACKUP_FILENAME=wordpress_backup_$(basename "${searchFolder}")_$(date +"%y-%m-%d_%H:%M:%S").tar.gz
   tar czf /tmp/${BACKUP_FILENAME} ${searchFolder}
 
   echo -e "Uploading to Dropbox...\n"

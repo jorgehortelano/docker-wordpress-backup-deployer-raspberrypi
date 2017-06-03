@@ -44,7 +44,10 @@ RUN chown nobody.nobody /usr/src/wordpress/wp-config.php && chmod 640 /usr/src/w
 
 # Append WP secrets
 COPY config/wp-secrets.php /usr/src/wordpress
-RUN chown nobody.nobody /usr/src/wordpress/wp-secrets.php && chmod 640 /usr/src/wordpress/wp-secrets.php
+COPY app/backup.sh /backup.sh
+RUN chown nobody.nobody /usr/src/wordpress/wp-secrets.php \
+    && chmod 640 /usr/src/wordpress/wp-secrets.php \
+    && chmod 640 /backup.sh \
 
 #Copy backup
 ADD *wordpress_backup*.tar.gz /tmp/backup
@@ -57,7 +60,6 @@ RUN rm -f /tmp/backup/wp-config.php \
 
 # Entrypoint to copy wp-content
 COPY entrypoint.sh /entrypoint.sh
-COPY app/backup.sh /backup.sh
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 
